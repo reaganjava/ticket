@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.local.dao.IFtpLogDataDao">
+
+	<resultMap type="FtpLogDataVo" id="FtpLogDataVoMap">
+		<id property="id" column="id" />
+		<result property="csvData" column="csvData" />
+		<result property="csvRow" column="csvRow" />
+		<result property="ftpFilePath" column="ftpFilePath" />
+		<result property="localFilePath" column="localFilePath" />
+		<result property="operateTime" column="operateTime" />
+	</resultMap>
+	
+	<insert id="insertFtpLogDataVo" parameterType="FtpLogDataVo" useGeneratedKeys="true" keyProperty="log.id">
+	INSERT INTO S_FTP_LOG_DATA (
+		CSV_DATA, CSV_ROW, FTP_FILE_PATH, LOCAL_FILE_PATH, OPERATE_TIME
+    )
+    VALUES (
+		#{log.csvData},#{log.csvRow},#{log.ftpFilePath},#{log.localFilePath},
+		#{log.operateTime}
+    )
+	</insert>
+
+</mapper>

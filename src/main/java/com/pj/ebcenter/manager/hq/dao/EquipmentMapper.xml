@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.hq.dao.IEquipmentDao">
+
+	<resultMap type="Equipment" id="equipmentMap">
+		<id property="equipmentId" column="EQUIPMENT_ID" />
+		<result property="equipmentNumber" column="EQUIPMENT_NUMBER" />
+		<result property="equipmentType" column="EQUIPMENT_TYPE" />
+		<result property="carrieroperator" column="CARRIEROPERATOR" />
+		<result property="equipmentRemarks" column="EQUIPMENT_REMARKS" />
+		<result property="equipmentStatus" column="EQUIPMENT_STATUS" />
+		<result property="equipmentScnizationStatus" column="EQUIPMENT_SCNIZATION_STATUS" />
+		<result property="merchantId" column="MERCHANT_ID" />
+		<result property="merchantName" column="MERCHANT_NAME" />
+		<result property="conectType" column="CONECT_TYPE" />
+		<result property="isRegister" column="IS_REGISTER" />
+		<result property="equipmentModel" column="EQUIPMENT_MODEL" />
+		<result property="isSync" column="IS_SYNC"/>
+	</resultMap>
+	
+	<select id="queryEquipmentByIsSync" resultMap="equipmentMap">
+		SELECT * FROM S_EQUIPMENT WHERE IS_SYNC=0
+	</select>
+	
+	<update id="updateIsSync" parameterType="Equipment">
+		UPDATE S_EQUIPMENT SET IS_SYNC = 1 WHERE EQUIPMENT_ID =#{equipmentId}
+	</update>
+
+	<insert id="save" parameterType="Equipment">
+		INSERT INTO S_EQUIPMENT
+				(EQUIPMENT_ID,
+				EQUIPMENT_NUMBER,
+				EQUIPMENT_TYPE,
+				CARRIEROPERATOR,
+				EQUIPMENT_REMARKS,
+				EQUIPMENT_STATUS,
+				EQUIPMENT_SCNIZATION_STATUS,
+				MERCHANT_ID,
+				MERCHANT_NAME,
+				IS_REGISTER,
+				CONECT_TYPE,
+				EQUIPMENT_MODEL,
+				IS_SYNC)
+				VALUES
+				(
+				#{equipmentId},
+				#{equipmentNumber},
+				#{equipmentType},
+				#{carrieroperator},
+				#{equipmentRemarks},
+				#{equipmentStatus},
+				#{equipmentScnizationStatus},
+				#{merchantId},
+				#{merchantName},
+				#{isRegister},
+				#{CONECT_TYPE},
+				#{equipmentModel},
+				#{isSync}
+				)
+	</insert>
+	
+</mapper>

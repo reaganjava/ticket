@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.local.dao.ILocalTerminalRecordDao">
+
+	<resultMap type="LocalTerminalRecordVo" id="LocalTerminalRecordVo">
+		<result property="terminalRecordId" column="TERMINAL_RECORD_ID" />
+		<result property="recordChannel" column="RECORD_CHANNEL" />
+		<result property="voucherValue" column="VOUCHER_VALUE" />
+		<result property="tradeNum" column="TRADE_NUM" />
+		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="printTimes" column="PRINT_TIMES" />
+		<result property="allSettlementPrice" column="ALL_SETTLEMENT_PRICE" />
+		<result property="terminalNum" column="TERMINAL_NUM" />
+		<result property="orderNum" column="ORDER_NUM" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="merchantId" column="MERCHANT_ID" />
+		<result property="merchantName" column="MERCHANT_NAME"/>
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID"/>
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME"/>
+		<result property="useTime" column="USE_TIME"/>
+		<result property="checkingType" column="CHECKING_TYPE"/>
+		<result property="batchNo" column="BATCH_NO"/>
+		<result property="needSendVerifyMsg" column="NEED_SEND_VERIFY_MSG"/>
+		<result property="createTime" column="CREATE_TIME"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+        TERMINAL_RECORD_ID, RECORD_CHANNEL, VOUCHER_VALUE, TRADE_NUM, TOTAL_PRICE, PRINT_TIMES, 
+		ALL_SETTLEMENT_PRICE, TERMINAL_NUM, ORDER_NUM,GOODS_ID,	GOODS_NAME,MERCHANT_ID,
+		MERCHANT_NAME,SCENIC_SPOT_ID,SCENIC_SPOT_NAME,USE_TIME, CHECKING_TYPE,BATCH_NO,
+		NEED_SEND_VERIFY_MSG,CREATE_TIME
+  	</sql>
+	
+	<insert id="insertSynToCloudData">
+	INSERT INTO S_TERMINAL_RECORD (
+		TERMINAL_RECORD_ID, RECORD_CHANNEL, VOUCHER_VALUE, TRADE_NUM, TOTAL_PRICE, PRINT_TIMES, 
+		ALL_SETTLEMENT_PRICE, TERMINAL_NUM, ORDER_NUM,GOODS_ID,	GOODS_NAME,MERCHANT_ID,
+		MERCHANT_NAME,SCENIC_SPOT_ID,SCENIC_SPOT_NAME,USE_TIME, CHECKING_TYPE,BATCH_NO,
+		NEED_SEND_VERIFY_MSG,CREATE_TIME
+    )
+    VALUES (
+		#{terminalRecordId},#{recordChannel},#{voucherValue},#{tradeNum},#{totalPrice},
+		#{printTimes},#{allSettlementPrice},#{terminalNum},#{orderNum},#{goodsId},
+		#{goodsName},#{merchantId},#{merchantName},#{scenicSpotId},#{scenicSpotName},
+		#{useTime},#{checkingType},#{batchNo},#{needSendVerifyMsg},#{createTime}
+    )
+	</insert>
+
+  <select id="selectByTerminalRecordId" resultMap="LocalTerminalRecordVo" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_TERMINAL_RECORD
+    where TERMINAL_RECORD_ID = #{terminalRecordId}
+  </select>
+  
+</mapper>

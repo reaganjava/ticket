@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.local.dao.ILocalVoucherDao">
+
+	<resultMap type="LocalVoucherVo" id="LocalVoucherVoMap">
+		<result property="orderId" column="orderId" />
+		<result property="refVoucherNo" column="refVoucherNo" />
+		<result property="refVoucherId" column="refVoucherId" />
+		<result property="voucherValue" column="voucherValue" />
+		<result property="certificateNum" column="certificateNum" />
+		<result property="goodsId" column="goodsId" />
+		<result property="goodsName" column="goodsName" />
+		<result property="scenicSpotId" column="scenicSpotId" />
+		<result property="scenicSpotName" column="scenicSpotName" />
+		<result property="isPackage" column="isPackage" />
+		<result property="packageId" column="packageId" />
+		<result property="validateTime" column="validateTime" />
+		<result property="maxUseTimes" column="maxUseTimes" />
+		<result property="cancelNum" column="cancelNum" />
+		<result property="freezeNum" column="freezeNum" />
+		<result property="status" column="status" />
+		<result property="isTicket" column="isTicket" />
+		<result property="useTime" column="useTime" />
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
+		<result property="startExpAllowTime" column="startExpAllowTime" />
+		<result property="endExpAllowTime" column="endExpAllowTime" />
+		<result property="isSecondValid" column="isSecondValid" />
+		<result property="expDayOfWeek" column="expDayOfWeek" />
+		<result property="expExceptionData" column="expExceptionData" />
+		<result property="price" column="price"/>
+		<result property="supplierSettlementPrice" column="supplierSettlementPrice"/>
+	</resultMap>
+	
+	<resultMap type="LocalVoucherMerchantVo" id="LocalVoucherMerchantVoMap">
+		<result property="voucherMerchantId" column="voucherMerchantId" />
+		<result property="voucherId" column="voucherId" />
+		<result property="merchantId" column="merchantId" />
+		<result property="merchantName" column="merchantName" />
+		<result property="canUseTimes" column="canUseTimes" />
+		<result property="useTimes" column="useTimes" />
+		<result property="scenicSpotId" column="scenicSpotId" />
+		<result property="scenicSpotName" column="scenicSpotName" />
+	</resultMap>
+
+	<insert id="batchInsertVoucherMerchantData" parameterType="java.util.List">
+		INSERT INTO S_VOUCHER_MERCHANT (
+			VOUCHER_MERCHANT_ID,VOUCHER_ID,MERCHANT_ID,MERCHANT_NAME,CAN_USE_TIMES,USE_TIMES,
+			SCENIC_SPOT_ID,SCENIC_SPOT_NAME) 
+		VALUES
+		 <foreach collection="list" item="t" index="index" separator=",">
+		 	(#{t.voucherMerchantId},#{t.voucherId},#{t.merchantId},#{t.merchantName},#{t.canUseTimes},#{t.useTimes},
+			#{t.scenicSpotId},#{t.scenicSpotName})
+		 </foreach>
+	</insert>
+	
+	<update id="createVoucherHistoryDataTable" parameterType="string">
+		CREATE TABLE ${tableName} SELECT * FROM ${oldTable} WHERE 1=1
+	</update>
+	
+	<update id="truncateVoucherData">
+		TRUNCATE ${tableName}
+	</update>
+
+	<insert id="insertVoucherData" parameterType="LocalVoucherVo">
+		INSERT INTO S_VOUCHER (
+			ORDER_ID,VOURCHER_NO,VOUCHER_ID,VOUCHER_VALUE,CERTIFICATE_NUM,
+			GOODS_ID,GOODS_NAME,SCENIC_SPOT_ID,SCENIC_SPOT_NAME,IS_PACKAGE,
+			PACKAGE_ID,VALIDATE_TIMES,MAX_USE_TIMES,CANCEL_NUM,
+			FREEZE_NUM,STATUS,IS_TICKET,USE_TIME,START_DATE,END_DATE,
+			START_EXP_ALLOW_TIME,END_EXP_ALLOW_TIME,IS_SECOND_VALID,
+			EXP_DAY_OF_WEEK,EXP_EXCEPTION_DATE,PRICE,SUPPLIER_SETTLEMENT_PRICE)
+		VALUES
+			(#{voucher.orderId},#{voucher.refVoucherNo},#{voucher.refVoucherId},#{voucher.voucherValue},#{voucher.certificateNum},
+			#{voucher.goodsId},#{voucher.goodsName},#{voucher.scenicSpotId},#{voucher.scenicSpotName},#{voucher.isPackage},
+			#{voucher.packageId},#{voucher.validateTime},#{voucher.maxUseTimes},#{voucher.cancelNum},
+			#{voucher.freezeNum},#{voucher.status},#{voucher.isTicket},#{voucher.useTime},#{voucher.startDate},#{voucher.endDate},
+			#{voucher.startExpAllowTime},#{voucher.endExpAllowTime},#{voucher.isSecondValid},
+			#{voucher.expDayOfWeek},#{voucher.expDayOfWeek},#{voucher.price},#{voucher.supplierSettlementPrice})
+	</insert>
+	
+	<select id="selectSynToLocalVoucher" resultMap="LocalVoucherVoMap">
+		SELECT 
+			ORDER_ID orderId, VOURCHER_NO refVoucherNo, VOUCHER_ID refVoucherId, VOUCHER_VALUE voucherValue, CERTIFICATE_NUM certificateNum, 
+			GOODS_ID goodsId, GOODS_NAME goodsName, SCENIC_SPOT_ID scenicSpotId, SCENIC_SPOT_NAME scenicSpotName, IS_PACKAGE isPackage,
+			PACKAGE_ID packageId, VALIDATE_TIMES validateTime, MAX_USE_TIMES maxUseTimes, CANCEL_NUM cancelNum, FREEZE_NUM freezeNum,
+			STATUS status, IS_TICKET isTicket, USE_TIME useTime, START_DATE startDate, END_DATE endDate,
+			START_EXP_ALLOW_TIME startExpAllowTime, END_EXP_ALLOW_TIME endExpAllowTime, IS_SECOND_VALID isSecondValid, 
+			EXP_DAY_OF_WEEK expDayOfWeek, EXP_EXCEPTION_DATE expExceptionData
+		FROM S_VOUCHER s
+		WHERE
+			'20131229'>=DATE_FORMAT(s.START_DATE,'%Y%m%d') AND '20140129' &lt;=DATE_FORMAT(s.END_DATE,'%Y%m%d') AND s.STATUS IN (1,7)
+	</select>
+	
+	<!-- 	分割线 -->	
+	<select id="selectVoucherVoToRefVoucherNo" resultMap="LocalVoucherVoMap">
+		SELECT 
+			ORDER_ID orderId, VOURCHER_NO refVoucherNo, VOUCHER_ID refVoucherId, VOUCHER_VALUE voucherValue, CERTIFICATE_NUM certificateNum, 
+			GOODS_ID goodsId, GOODS_NAME goodsName, SCENIC_SPOT_ID scenicSpotId, SCENIC_SPOT_NAME scenicSpotName, IS_PACKAGE isPackage,
+			PACKAGE_ID packageId, VALIDATE_TIMES validateTime, MAX_USE_TIMES maxUseTimes, CANCEL_NUM cancelNum, FREEZE_NUM freezeNum,
+			STATUS status, IS_TICKET isTicket, USE_TIME useTime, START_DATE startDate, END_DATE endDate,
+			START_EXP_ALLOW_TIME startExpAllowTime, END_EXP_ALLOW_TIME endExpAllowTime, IS_SECOND_VALID isSecondValid, 
+			EXP_DAY_OF_WEEK expDayOfWeek, EXP_EXCEPTION_DATE expExceptionData, PRICE price, SUPPLIER_SETTLEMENT_PRICE supplierSettlementPrice
+		FROM S_VOUCHER s
+		WHERE s.VOURCHER_NO=#{refVoucherNo}
+	</select>
+	
+	<select id="selectVoucherVoCountToRefVoucherNo" resultType="int">
+		SELECT COUNT(VOURCHER_NO)
+		FROM S_VOUCHER s
+		WHERE s.VOURCHER_NO=#{refVoucherNo}
+	</select>
+	
+
+	<update id="updateSynToCloudData">
+		UPDATE S_VOUCHER SET VALIDATE_TIMES = #{entity.validateTime},MAX_USE_TIMES = #{entity.validateTime},
+		CANCEL_NUM = #{entity.cancelNum},FREEZE_NUM = #{entity.freezeNum},STATUS = #{entity.status},
+		IS_TICKET = #{entity.isTicket},USE_TIME = #{entity.useTime},IS_SECOND_VALID = #{entity.isSecondValid}
+		WHERE VOURCHER_NO = #{entity.refVoucherNo}
+	</update>
+	
+</mapper>

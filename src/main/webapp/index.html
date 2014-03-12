@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Desktop</title>
+
+    <!--皮肤-->
+    <link rel="stylesheet"  href="resources/themes/ext-theme-neptune/ext-theme-neptune-all.css" />
+    <!--自定义桌面样式-->
+    <link rel="stylesheet"  href="resources/css/desktop.css" />
+
+
+
+
+    <!--动态加载js，引导文件-->
+    <script src="lib/ext/bootstrap.js"></script>
+
+    <!--语言本地化-->
+    <script  src="lib/ext/ext-lang-zh_CN.js"></script>
+
+    <!--样式修正-->
+    <script  src="lib/ext/ext-theme-neptune.js"></script>
+
+
+
+
+    <script>
+         Ext.Loader.setConfig({
+             //开启动态加载js文件功能，
+             enabled: true,
+
+             //动态载入js文件不附加随机数，即启用js文件缓存。调试时设置为false，否则firebug中打断点会无效。
+             disableCaching: true,
+
+             //载入类路径设置。
+             paths:{
+                 //应用名称对应的路径
+                 'Wms': 'app',
+
+                 //针对Ext本身的一些功能扩展类存放路径 ，
+                 // 扩展类应定义为  Ext.define('Ext.ux.ClassName'{.......})，并创建ClassName.js文件放在lib/ux/目录内
+                 'Ext.ux':'lib/ux'
+
+             }
+         });
+
+
+
+         //初始化tips 提示框，
+         Ext.QuickTips.init();
+
+         //设置表单错误消息提示方式。
+         Ext.form.Field.prototype.msgTarget = 'side';
+
+
+         //创建命名空间
+         Ext.ns("Wms");
+
+         //预先载入Wms.Application，如果有其它自定义的类要使用，也应该以此方式   Ext.require('myClass');，在这里先载入
+         Ext.require('Wms.Application');
+
+
+
+         //创建一个用户对象，用于存储已登录的用户信息，此对象可以在服务端写入，
+         // 此处为了方便Demo开发，直接写入一个User对象
+         Wms.curUser={
+             userName:"admin",
+             signInTime:new Date().getDate(),
+             roles:0,
+             online:true,
+             locked:false,
+             authority:[
+                 //新闻中心菜单项
+                 {
+                     type:"newsCenter",
+                     menu:[
+                         {menuName:"newsMgr",  add:true,  edit:true,  del:true },
+                         {menuName:"newsTypeMgr",  add:true,  edit:true,  del:false }
+                     ]
+                 },
+
+                 //Demo菜单项
+                 {
+                     type:"demo",
+                     menu:[
+                         {menuName:"file",  create:true,  open:true,  exit:true },
+                         {menuName:"edit",  copy:true,  cut:true,  paste:true,search:true }
+                     ]
+                 }
+
+             ]
+         };
+
+
+
+
+         //dom ready 后启动应用，即显示应用界面。实例化 Wms.Application类
+        Ext.onReady(function () {
+            Ext.create("Wms.Application");
+        });
+    </script>
+
+
+    <!--自定义的工具类-->
+    <script src="lib/tools/WmsTools.js"></script>
+
+</head>
+
+<body>
+
+</body>
+</html>

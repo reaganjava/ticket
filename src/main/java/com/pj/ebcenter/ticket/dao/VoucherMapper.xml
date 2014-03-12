@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.ticket.dao.IVoucherDao">
+
+	<resultMap type="Voucher" id="voucherMap">
+		<id property="voucherNo" column="VOURCHER_NO" />
+		<id property="voucherId" column="VOUCHER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="orderType" column="ORDER_TYPE" />
+		<result property="isPackage" column="IS_PACKAGE" />
+		<result property="packageId" column="PACKAGE_ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+<!-- 		<result property="channelType" column="CHANNEL_TYPE" /> -->
+<!-- 		<result property="instChannelId" column="INST_CHANNEL_ID" /> -->
+<!-- 		<result property="channelName" column="CHANNEL_NAME" /> -->
+		<result property="listPrice" column="LIST_PRICE" />
+		<result property="price" column="PRICE" />
+		<result property="supplierSettlementPrice" column="SUPPLIER_SETTLEMENT_PRICE" />
+<!-- 		<result property="sendMobile" column="SEND_MOBILE" /> -->
+		<result property="maxUseTimes" column="MAX_USE_TIMES" />
+		<result property="validateTimes" column="VALIDATE_TIMES" />
+		<result property="cancelNum" column="CANCEL_NUM" />
+<!-- 		<result property="smsCount" column="SMS_COUNT" /> -->
+		<result property="status" column="STATUS" />
+		<result property="freezeNum" column="FREEZE_NUM" />
+		<result property="isTicket" column="IS_TICKET" />
+		<result property="useTime" column="USE_TIME" />
+		<result property="sendTime" column="SEND_TIME" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="certificateNum" column="CERTIFICATE_NUM" />
+		<result property="voucherValue" column="VOUCHER_VALUE" />
+<!-- 		<result property="voucherImageUrl" column="VOUCHER_IMAGE_URL" /> -->
+<!-- 		<result property="userId" column="USER_ID" /> -->
+<!-- 		<result property="invalidDesc" column="INVALID_DESC" /> -->
+		<result property="changeStartDate" column="CHANGE_START_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		<result property="startExpAllowTime" column="START_EXP_ALLOW_TIME" />
+		<result property="endExpAllowTime" column="END_EXP_ALLOW_TIME" />
+		<result property="isSeondValid" column="IS_SECOND_VALID" />
+		<result property="expDayOfWeek" column="EXP_DAY_OF_WEEK"/>
+		<result property="expExceptionDate" column="EXP_EXCEPTION_DATE"/>
+		<result property="reprintTimes" column="REPRINT_TIMES"/>
+	</resultMap>
+
+	<resultMap type="Voucher" id="voucherMerchantMap" extends="voucherMap">
+		<collection property="voucherMerchant" ofType="VoucherMerchant"
+			column="VOUCHER_ID">
+			<id property="voucherMerchantId" column="VOUCHER_MERCHANT_ID" />
+			<result property="voucherId" column="VOUCHER_ID" />
+			<result property="merchantId" column="MERCHANT_ID" />
+			<result property="merchantName" column="MERCHANT_NAME" />
+			<result property="canUseTimes" column="CAN_USE_TIMES" />
+			<result property="useTimes" column="USE_TIMES" />
+			<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+			<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		</collection>
+	</resultMap>
+	
+		<resultMap type="Equipment" id="equipmentMap" >
+			<id property="equipmentId" column="EQUIPMENT_ID" />
+			<result property="equipmentNumber" column="EQUIPMENT_NUMBER" />
+			<result property="equipmentType" column="EQUIPMENT_TYPE" />
+			<result property="carrieroperator" column="CARRIEROPERATOR" />
+			<result property="equipmentRemarks" column="EQUIPMENT_REMARKS" />
+			<result property="equipmentStatus" column="EQUIPMENT_STATUS" />
+			<result property="equipmentScnizationStatus" column="EQUIPMENT_SCNIZATION_STATUS" />		
+			<result property="merchantId" column="MERCHANT_ID"/>
+			<result property="merchantName" column="MERCHANT_NAME"/>
+			<result property="isRegister" column="IS_REGISTER"/>
+			<result property="equipmentModel" column="EQUIPMENT_MODEL"/>
+	</resultMap>
+	
+	<resultMap type="Equipment" id="equipmentRegistrationMap"  extends="equipmentMap">
+			<collection property="equipmentRegistration" ofType="Registration"
+			column="EQUIPMENT_ID">
+			<id property="batch_no" column="BATCH_NO" />
+			<result property="password" column="PASSWORD" />
+			<result property="create_time" column="CREATE_TIME" />
+			<result property="create_time" column="CREATE_TIME" />
+			</collection>
+	</resultMap>
+
+
+
+	<sql id="s_voucher_condition">
+<!-- 		<if test="voucher_id != null">AND  t.VOUCHER_ID = #{voucher_id}   </if> -->
+<!-- 		<if test="scenic_id != null">AND  t.SCENIC_ID = #{scenic_id}   </if> -->
+<!-- 		<if test="scenic_name != null">AND  t.SCENIC_NAME = #{scenic_name}   </if> -->
+<!-- 		<if test="order_id != null">  t.ORDER_ID = #{order_id} AND </if> -->
+<!-- 		<if test="user_id != null">AND  t.USER_ID = #{user_id}  </if> -->
+<!-- 		<if test="send_mobile != null">AND  t.SEND_MOBILE = #{send_mobile}  </if> -->
+<!-- 		<if test="max_use_times != null">AND  t.MAX_USE_TIMES = #{max_use_times}  </if> -->
+<!-- 		<if test="validate_times != null">AND  t.VALIDATE_TIMES = #{validate_times}  </if> -->
+<!-- 		<if test="max_use_times != null">AND  t.MAX_USE_TIMES = #{max_use_times}  </if> -->
+<!-- 		<if test="sms_count != null">AND  t.SMS_COUNT = #{sms_count}   </if> -->
+<!-- 		<if test="start_use_time != null"> AND t.USE_TIME >= date_format(#{start_use_time}, '%Y-%m-%d'')   -->
+<!-- 		</if> -->
+<!-- 		<if test="end_use_time != null"> <![CDATA[ AND t.USE_TIME < (date_format(#{end_use_time}, ''%Y-%m-%d'') +1)  ]]> -->
+<!-- 		</if> -->
+<!-- 		<if test="start_send_time != null"> <![CDATA[AND  t.SEND_TIME >=  (date_format(#{start_send_time}, ''%Y-%m-%d'') +1)  ]]></if> -->
+<!-- 		<if test="end_send_time != null"> <![CDATA[AND  t.SEND_TIME < (date_format(#{end_send_time}, ''%Y-%m-%d'') +1) ]]></if> -->
+<!-- 		<if test="start_date != null"> <![CDATA[AND   t.START_DATE >= (date_format(#{start_date}, ''%Y-%m-%d'') +1) ]]></if> -->
+<!-- 		<if test="end_date != null"> <![CDATA[ AND  t.END_DATE < (date_format(#{end_date}, ''%Y-%m-%d'') +1) ]]></if> -->
+<!-- 		<if test="invalid_desc != null">AND  t.INVALID_DESC =#{invalid_desc} </if> -->
+<!-- 			<if test="voucher_image_url != null">AND t.VOUCHER_IMAGE_URL =#{voucher_image_url}</if> -->
+		<if test="merchant_id != null">AND  s.MERCHANT_ID = #{merchant_id}   </if>
+		<if test="status != null">AND  t.STATUS in (#{status},#{status1}) </if>
+		<if test="checking_type==1">
+				<if test="voucher_value != null">AND  t.VOUCHER_VALUE =#{voucher_value} </if>
+		</if>
+			<if test="checking_type==2">
+				<if test="certificate_num != null">AND t.CERTIFICATE_NUM =#{certificate_num} </if>
+		</if>
+		 AND  t.VOUCHER_ID = s.VOUCHER_ID 
+				 ORDER BY t.START_DATE ASC
+	</sql>
+	<select id="select_Voucher" parameterType="Map" resultMap="voucherMerchantMap">
+ <![CDATA[
+select t.VOUCHER_ID,
+	   t.VOURCHER_NO,
+       t.ORDER_ID,
+       t.MAX_USE_TIMES,
+       t.VALIDATE_TIMES,
+       t.STATUS,
+	   date_format(t.USE_TIME, '%Y-%m-%d %H:%i:%s') USE_TIME,
+       date_format(t.START_DATE, '%Y-%m-%d') START_DATE,
+       date_format(t.END_DATE, '%Y-%m-%d') END_DATE,
+       t.GOODS_ID,
+       t.PRICE,
+       t.CERTIFICATE_NUM,
+       t.SUPPLIER_SETTLEMENT_PRICE,
+       t.VOUCHER_VALUE,
+       t.VOUCHER_IMAGE_URL,
+	   t.GOODS_NAME,
+	   s.MERCHANT_ID,
+	   s.MERCHANT_NAME,
+	   s.CAN_USE_TIMES,
+	   s.USE_TIMES,
+	   t.SCENIC_SPOT_ID,
+	   t.SCENIC_SPOT_NAME,
+	   t.START_EXP_ALLOW_TIME,
+	   t.END_EXP_ALLOW_TIME,
+	   t.IS_SECOND_VALID,
+	   t.IS_TICKET,
+	   t.FREEZE_NUM,
+	   t.CANCEL_NUM,
+	   t.EXP_DAY_OF_WEEK,
+	   t.EXP_EXCEPTION_DATE
+  from S_VOUCHER t,S_VOUCHER_MERCHANT s
+  where 	  
+  		 1=1
+     ]]>
+<include refid="s_voucher_condition" />
+	</select>
+	<update id="update_voucher_for_verify" parameterType="Map">
+	   <![CDATA[
+   	  UPDATE S_VOUCHER SET VALIDATE_TIMES=VALIDATE_TIMES+(CASE  
+         WHEN MAX_USE_TIMES-VALIDATE_TIMES >0 THEN  
+          MAX_USE_TIMES-VALIDATE_TIMES-CANCEL_NUM-FREEZE_NUM  
+         WHEN 0 >= MAX_USE_TIMES-VALIDATE_TIMES-VALIDATE_TIMES-CANCEL_NUM-FREEZE_NUM   THEN  
+          0
+       END),
+       STATUS=(
+       CASE 
+       WHEN
+       CANCEL_NUM>0 OR FREEZE_NUM>0
+       THEN
+       7
+       ELSE
+       2
+       END),
+       use_time = date_format(#{use_time},'%Y-%m-%d %H:%i:%s')  
+		WHERE  STATUS=1 AND VOUCHER_ID = #{voucher_id}
+     ]]>
+	</update>
+		<update id="update_voucherMerchant_for_verify" parameterType="Map">
+	   <![CDATA[
+   	  UPDATE S_VOUCHER_MERCHANT  SET USE_TIMES=USE_TIMES+(CASE  
+         WHEN CAN_USE_TIMES-USE_TIMES >0 THEN  
+         1
+         WHEN 0 >= CAN_USE_TIMES-USE_TIMES THEN  
+          0
+       END)
+		WHERE  VOUCHER_ID = #{voucher_id}
+		AND       MERCHANT_ID = #{merchant_id}
+     ]]>
+	</update>
+	<insert id="insert_s_terminal_record" parameterType="Map" >
+		insert into S_TERMINAL_RECORD (
+		TERMINAL_RECORD_ID
+	<if test="record_channel != null">,RECORD_CHANNEL</if>
+	<if test="voucher_value != null">,VOUCHER_VALUE </if>
+	<if test="trade_num != null">,TRADE_NUM </if>
+	<if test="total_price != null">,TOTAL_PRICE </if>
+	<if test="all_settlement_price != null">,ALL_SETTLEMENT_PRICE </if>
+	<if test="terminal_num != null">,TERMINAL_NUM</if>
+	<if test="print_times != null">,PRINT_TIMES</if>
+	<if test="order_num != null">,ORDER_NUM </if>
+<!-- 	<if test="phone != null">,PHONE</if> -->
+<!-- 	<if test="sales_price != null">,SALES_PRICE</if> -->
+<!-- 	<if test="settlement_price != null">,SETTLEMENT_PRICE </if> -->
+	<if test="merchant_name != null">,MERCHANT_NAME </if>
+	<if test="use_time != null">,USE_TIME </if>
+	<if test="checking_type != null">,CHECKING_TYPE </if>
+<!-- 	<if test="certificate_num != null">,CERTIFICATE_NUM </if> -->
+	<if test="batch_no != null">,BATCH_NO </if>
+	<if test="need_send_verify_msg != null">,NEED_SEND_VERIFY_MSG</if>
+	<if test="scenic_spot_id != null">,SCENIC_SPOT_ID</if>
+	<if test="goods_id != null">,GOODS_ID </if>
+	<if test="scenic_spot_name != null">,SCENIC_SPOT_NAME </if>
+	<if test="merchant_id != null">,MERCHANT_ID </if>
+	<if test="goods_name != null">, GOODS_NAME</if>
+	)  VALUES(
+	#{terminal_record_id}
+	<if test="record_channel != null"> ,#{record_channel}</if>
+	<if test="voucher_value != null"> ,#{voucher_value}</if>
+	<if test="trade_num != null"> ,#{trade_num}</if>
+	<if test="total_price != null">, #{total_price}</if>
+	<if test="all_settlement_price != null">, #{all_settlement_price}</if>
+	<if test="terminal_num != null">, #{terminal_num}</if>
+	<if test="print_times != null">, #{print_times}</if>
+	<if test="order_num != null"> ,#{order_num}</if>
+<!-- 	<if test="phone != null"> ,#{phone}</if> -->
+<!-- 	<if test="sales_price != null">, #{sales_price}</if> -->
+<!-- 	<if test="settlement_price != null">, #{settlement_price}</if> -->
+	<if test="merchant_name != null"> ,#{merchant_name}</if>
+	<if test="use_time != null">, #{use_time}</if>
+	<if test="checking_type != null"> ,#{checking_type}</if>
+<!-- 	<if test="certificate_num != null"> ,#{certificate_num}</if> -->
+	<if test="batch_no != null"> ,#{batch_no}</if>
+	<if test="need_send_verify_msg != null">, #{need_send_verify_msg}</if>
+	<if test="scenic_spot_id != null"> ,#{scenic_spot_id}</if>
+	<if test="goods_id != null">, #{goods_id}</if>
+	<if test="scenic_spot_name != null">, #{scenic_spot_name}</if>
+	<if test="merchant_id != null">, #{merchant_id}</if>
+	<if test="goods_name != null">, #{goods_name}</if>
+	)
+	</insert>
+	
+	   <update id="update_s_terminal_record"  parameterType="Map">
+	      <![CDATA[
+  	  update S_VOUCHER set USE_TIME=now(), REPRINT_TIMES=REPRINT_TIMES+1 	
+	  		where ORDER_ID = #{order_id} and voucher_value = #{voucher_value}
+	  		]]>
+	  </update> 
+	  <select id="queryEquipmentByNumber" parameterType="Map"  resultMap="equipmentRegistrationMap">
+	  <![CDATA[
+	  			select * from S_REGISTRATION_SERVICE a,
+				S_EQUIPMENT b where a.EQUIPMENT_ID=b.EQUIPMENT_NUMBER
+				and
+				a.EQUIPMENT_ID=#{equipment_number}	
+	  			order by a.CREATE_TIME desc
+	  ]]>
+	  </select>
+	  <select id="queryEquipmentIsRegister" parameterType="Map" resultType="int">
+	  <![CDATA[
+	  			select count(*) from S_EQUIPMENT where IS_REGISTER=0 and equipment_number=#{equipment_number}
+	  ]]>
+	  </select>
+	  <update id="signIn" parameterType="Map" >
+	      <![CDATA[
+	      update S_EQUIPMENT set IS_REGISTER=0 where EQUIPMENT_NUMBER=#{equipment_number}
+	      	]]>
+	  </update>
+	  <insert id="insert_s_registration_service" parameterType="Map" >
+	   <![CDATA[ 
+	   insert into S_REGISTRATION_SERVICE(EQUIPMENT_ID,BATCH_NO,PASSWORD,CREATE_TIME)
+	   values(#{equipment_number},#{batch_no},#{password},#{create_time})
+	   	]]>
+	  </insert>
+	  	  <update id="signOut" parameterType="Map" >
+	      <![CDATA[
+	      	      update S_EQUIPMENT set IS_REGISTER=1 where EQUIPMENT_NUMBER=#{equipment_number}
+	      	]]>
+	  </update>
+	  
+	  <update id="modifyVoucherIsTicket" parameterType="Map">
+	  <![CDATA[
+	    update S_VOUCHER set CREATE_TIME=now(), IS_TICKET=#{is_ticket}
+	  		where ORDER_ID = #{order_id} and voucher_value = #{voucher_value}
+	  ]]>
+	  </update>
+	  
+	  
+	  	<insert id="insert_s_ticket_record" parameterType="Map" >
+		insert into S_TICKET_RECORD (
+		TERMINAL_RECORD_ID
+	<if test="record_channel != null">,RECORD_CHANNEL</if>
+	<if test="voucher_value != null">,VOUCHER_VALUE </if>
+	<if test="trade_num != null">,TRADE_NUM </if>
+	<if test="print_times != null">,PRINT_TIMES</if>
+	<if test="terminal_num != null">,TERMINAL_NUM</if>
+	<if test="reprint_times != null">,REPRINT_TIMES</if>
+	<if test="order_num != null">,ORDER_NUM </if>
+	<if test="merchant_name != null">,MERCHANT_NAME </if>
+	<if test="batch_no != null">,BATCH_NO </if>
+	<if test="scenic_spot_id != null">,SCENIC_SPOT_ID</if>
+	<if test="goods_id != null">,GOODS_ID </if>
+	<if test="scenic_spot_name != null">,SCENIC_SPOT_NAME </if>
+	<if test="merchant_id != null">,MERCHANT_ID </if>
+	<if test="goods_name != null">, GOODS_NAME</if>
+	<if test="create_time !=null">,CREATE_TIME</if>
+	)  VALUES(
+	#{terminal_record_id}
+	<if test="record_channel != null"> ,#{record_channel}</if>
+	<if test="voucher_value != null"> ,#{voucher_value}</if>
+	<if test="trade_num != null"> ,#{trade_num}</if>
+	<if test="print_times != null"> ,#{print_times}</if>
+	<if test="terminal_num != null">, #{terminal_num}</if>
+	<if test="reprint_times != null">, #{reprint_times}</if>
+	<if test="order_num != null"> ,#{order_num}</if>
+	<if test="merchant_name != null"> ,#{merchant_name}</if>
+	<if test="batch_no != null"> ,#{batch_no}</if>
+	<if test="scenic_spot_id != null"> ,#{scenic_spot_id}</if>
+	<if test="goods_id != null">, #{goods_id}</if>
+	<if test="scenic_spot_name != null">, #{scenic_spot_name}</if>
+	<if test="merchant_id != null">, #{merchant_id}</if>
+	<if test="goods_name != null">, #{goods_name}</if>
+	<if test="create_time !=null">,#{create_time}</if>
+	)
+	</insert>
+	
+	<select id="selectEquipmentByEquipmentNumber" resultMap="equipmentMap">
+	<![CDATA[
+					SELECT * FROM S_EQUIPMENT WHERE EQUIPMENT_NUMBER=#{deviceid}
+	]]>
+	</select>
+	
+	
+	<select id="queryAllEquipment" resultMap="equipmentMap">
+	<![CDATA[
+					SELECT * FROM S_EQUIPMENT WHERE EQUIPMENT_SCNIZATION_STATUS=0
+	]]>
+	</select>
+</mapper>

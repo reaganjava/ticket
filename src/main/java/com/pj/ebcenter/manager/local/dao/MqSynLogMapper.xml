@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pj.ebcenter.manager.local.dao.IMqSynLogDao" >
+  <resultMap id="BaseResultMap" type="MqSynLog" >
+    <id column="LOG_ID" property="logId" jdbcType="INTEGER" />
+    <result column="LOG_STATUS" property="logStatus" jdbcType="INTEGER" />
+    <result column="LOG_DATE" property="logDate" jdbcType="DATE" />
+    <result column="VOUCHER" property="voucher" jdbcType="VARCHAR" />
+    <result column="TERMINALRECORD" property="terminalrecord" jdbcType="VARCHAR" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, LOG_STATUS, LOG_DATE, VOUCHER, TERMINALRECORD, MESSAGE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_MQ_SYNLOG
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from S_MQ_SYNLOG
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="MqSynLog" >
+    insert into S_MQ_SYNLOG (LOG_ID, LOG_STATUS, LOG_DATE, 
+      VOUCHER, TERMINALRECORD, MESSAGE
+      )
+    values (#{logId,jdbcType=INTEGER}, #{logStatus,jdbcType=INTEGER}, #{logDate,jdbcType=DATE}, 
+      #{voucher,jdbcType=VARCHAR}, #{terminalrecord,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MqSynLog" >
+    insert into S_MQ_SYNLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="logStatus != null" >
+        LOG_STATUS,
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE,
+      </if>
+      <if test="voucher != null" >
+        VOUCHER,
+      </if>
+      <if test="terminalrecord != null" >
+        TERMINALRECORD,
+      </if>
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logStatus != null" >
+        #{logStatus,jdbcType=INTEGER},
+      </if>
+      <if test="logDate != null" >
+        #{logDate,jdbcType=DATE},
+      </if>
+      <if test="voucher != null" >
+        #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalrecord != null" >
+        #{terminalrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MqSynLog" >
+    update S_MQ_SYNLOG
+    <set >
+      <if test="logStatus != null" >
+        LOG_STATUS = #{logStatus,jdbcType=INTEGER},
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE = #{logDate,jdbcType=DATE},
+      </if>
+      <if test="voucher != null" >
+        VOUCHER = #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalrecord != null" >
+        TERMINALRECORD = #{terminalrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        MESSAGE = #{message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MqSynLog" >
+    update S_MQ_SYNLOG
+    set LOG_STATUS = #{logStatus,jdbcType=INTEGER},
+      LOG_DATE = #{logDate,jdbcType=DATE},
+      VOUCHER = #{voucher,jdbcType=VARCHAR},
+      TERMINALRECORD = #{terminalrecord,jdbcType=VARCHAR},
+      MESSAGE = #{message,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

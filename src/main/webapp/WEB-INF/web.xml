@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	
+    <context-param>  
+        <param-name>webAppRootKey</param-name>  
+        <param-value>webapp.site</param-value>  
+    </context-param>
+ 	<display-name>mopon framework</display-name> 
+ 	<listener>
+ 		<listener-class>com.mopon.listener.AppListener</listener-class>
+	</listener> 
+	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/config/log4j.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>6000</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>setCharacterEncoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>setCharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- <filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	
+	
+	<!--仅对post方法提交，且提交的参数要有_method进行转换 -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>hiddenHttpMethodFilter</filter-name> -->
+<!-- 		<filter-class>com.mopon.filter.MyHiddenHttpMethodFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>hiddenHttpMethodFilter</filter-name> -->
+<!-- 		<servlet-name>springServlet</servlet-name> -->
+<!-- 	</filter-mapping> -->
+	
+	<servlet>
+		<servlet-name>proxoolServletConfigurator</servlet-name>
+		<servlet-class>org.logicalcobwebs.proxool.configuration.ServletConfigurator</servlet-class>
+		<init-param>
+			<param-name>xmlFile</param-name>
+			<param-value>WEB-INF/classes/config/db/proxool-conf.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminP</servlet-name>
+		<servlet-class>org.logicalcobwebs.proxool.admin.servlet.AdminServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>AdminP</servlet-name>
+		<url-pattern>/AdminP</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>springServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+ 				/WEB-INF/classes/config/spring/memcached.xml 
+				/WEB-INF/classes/config/spring/repository.xml
+				/WEB-INF/classes/config/spring/spring-servlet.xml
+				/WEB-INF/classes/config/spring/daoSource.xml
+				/WEB-INF/classes/config/spring/jms.xml
+				<!-- classpath:config/spring/times.xml -->
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	 <servlet>
+  		<servlet-name>CXFServlet</servlet-name>
+  		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+  		<load-on-startup>2</load-on-startup>
+ 	</servlet>
+ 	<servlet-mapping>
+  		<servlet-name>CXFServlet</servlet-name>
+  		<url-pattern>/webservice/*</url-pattern>
+	 </servlet-mapping>
+</web-app>

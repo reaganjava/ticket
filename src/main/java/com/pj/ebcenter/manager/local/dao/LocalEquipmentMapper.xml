@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.local.dao.ILocalEquipmentDao">
+
+	<resultMap type="LocalEquipmentVo" id="LocalEquipmentVoMap">
+		<result property="equipmentId" column="equipmentId" />
+		<result property="equipmentNumber" column="equipmentNumber" />
+		<result property="equipmentType" column="equipmentType" />
+		<result property="carrieroperator" column="carrieroperator" />
+		<result property="equipmentRemarks" column="equipmentRemarks" />
+		<result property="equipmentStatus" column="equipmentStatus" />
+		<result property="equipmentScnizationStatus" column="equipmentScnizationStatus" />
+		<result property="merchantId" column="merchantId" />
+		<result property="merchantName" column="merchantName" />
+		<result property="conectType" column="conectType" />
+		<result property="equipmentModel" column="equipmentModel" />
+		<result property="scenicSpotId" column="scenicSpotId" />
+		<result property="scenicSpotId" column="scenicSpotId"/>
+	</resultMap>
+	
+	<insert id="saveLocalEquipment" parameterType="LocalEquipmentVo">
+		INSERT INTO S_EQUIPMENT (
+			EQUIPMENT_ID,EQUIPMENT_NUMBER,EQUIPMENT_TYPE,CARRIEROPERATOR,EQUIPMENT_REMARKS,EQUIPMENT_STATUS,
+			EQUIPMENT_SCNIZATION_STATUS,MERCHANT_ID,MERCHANT_NAME,IS_REGISTER,CONECT_TYPE,EQUIPMENT_MODEL,SCENIC_SPOT_ID) 
+		VALUES
+		 	(#{localEquipment.equipmentId},#{localEquipment.equipmentNumber},#{localEquipment.equipmentType},#{localEquipment.carrieroperator},
+		 	#{localEquipment.equipmentRemarks},#{localEquipment.equipmentStatus},#{localEquipment.equipmentScnizationStatus},#{localEquipment.merchantId},
+		 	#{localEquipment.merchantName},#{localEquipment.isRegister},#{localEquipment.conectType},#{localEquipment.equipmentModel},#{localEquipment.scenicSpotId})
+	</insert>
+
+	<update id="updateLocalEquiment" parameterType="LocalEquipmentVo">
+		UPDATE S_EQUIPMENT SET EQUIPMENT_NUMBER = #{localEquipment.equipmentNumber},EQUIPMENT_TYPE = #{localEquipment.equipmentType},
+			CARRIEROPERATOR = #{localEquipment.carrieroperator},EQUIPMENT_REMARKS = #{localEquipment.equipmentRemarks},EQUIPMENT_STATUS = #{localEquipment.equipmentStatus},
+			EQUIPMENT_SCNIZATION_STATUS = #{localEquipment.equipmentScnizationStatus},MERCHANT_ID = #{localEquipment.merchantId},MERCHANT_NAME = #{localEquipment.merchantName},
+			IS_REGISTER = #{localEquipment.isRegister},CONECT_TYPE = #{localEquipment.conectType},EQUIPMENT_MODEL = #{localEquipment.equipmentModel},
+			SCENIC_SPOT_ID = #{localEquipment.scenicSpotId}
+		WHERE EQUIPMENT_ID = #{localEquipment.equipmentId}
+	</update>
+	
+	<select id="findLocalEquimentById" resultMap="LocalEquipmentVoMap" parameterType="java.util.List">
+		SELECT 
+			EQUIPMENT_ID equipmentId, EQUIPMENT_NUMBER equipmentNumber, EQUIPMENT_TYPE equipmentType, CARRIEROPERATOR carrieroperator, 
+			EQUIPMENT_REMARKS equipmentRemarks, EQUIPMENT_STATUS equipmentStatus, EQUIPMENT_SCNIZATION_STATUS equipmentScnizationStatus, 
+			MERCHANT_ID merchantId, MERCHANT_NAME merchantName, IS_REGISTER isRegister,
+		  	CONECT_TYPE conectType, EQUIPMENT_MODEL equipmentModel, SCENIC_SPOT_ID scenicSpotId
+	 	FROM S_EQUIPMENT
+	 	WHERE EQUIPMENT_ID IN 
+	 	<foreach collection="list" index="index" item="ids" open="("
+				separator="," close=")">
+				#{ids}
+		</foreach>
+	</select>
+</mapper>

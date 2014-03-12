@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.hq.dao.IVoucherHQDao">
+
+	<resultMap type="Voucher" id="voucherMap">
+		<id property="voucherNo" column="VOUCHER_NO" />
+		<id property="voucherId" column="VOUCHER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="orderType" column="ORDER_TYPE" />
+		<result property="isPackage" column="IS_PACKAGE" />
+		<result property="packageId" column="PACKAGE_ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="goodsTypeId" column="GOODS_TYPE_ID" />
+		<result property="channelType" column="CHANNEL_TYPE" />
+		<result property="instChannelId" column="INST_CHANNEL_ID" />
+		<result property="channelName" column="CHANNEL_NAME" />
+		<result property="listPrice" column="LIST_PRICE" />
+		<result property="price" column="PRICE" />
+		<result property="supplierSettlementPrice" column="SUPPLIER_SETTLEMENT_PRICE" />
+		<result property="sendMobile" column="SEND_MOBILE" />
+		<result property="maxUseTimes" column="MAX_USE_TIMES" />
+		<result property="validateTimes" column="VALIDATE_TIMES" />
+		<result property="cancelNum" column="CANCEL_NUM" />
+		<result property="smsCount" column="SMS_COUNT" />
+		<result property="status" column="STATUS" />
+		<result property="freezeNum" column="FREEZE_NUM" />
+		<result property="isTicket" column="IS_TICKET" />
+		<result property="useTime" column="USE_TIME" />
+		<result property="sendTime" column="SEND_TIME" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="certificateNum" column="CERTIFICATE_NUM" />
+		<result property="voucherValue" column="VOUCHER_VALUE" />
+		<result property="voucherImageUrl" column="VOUCHER_IMAGE_URL" />
+		<result property="userId" column="USER_ID" />
+		<result property="invalidDesc" column="INVALID_DESC" />
+		<result property="changeStartDate" column="CHANGE_START_DATE" />
+		<result property="changeEndDate" column="CHANGE_END_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		<result property="supplierId" column="SUPPLIER_ID" />
+		<result property="expDayOfWeek" column="EXP_DAY_OF_WEEK" />
+		<result property="expExceptionDate" column="EXP_EXCEPTION_DATE" />
+		<result property="expAllowHours" column="EXP_ALLOW_HOURS" />
+		<result property="isSecondValid" column="IS_SECOND_VALID" />
+		<result property="outCode" column="OUT_CODE" />
+		<result property="isSync" column="IS_SYNC"/>
+	</resultMap>
+	
+	<resultMap type="Voucher" id="voucherSyncMap">
+		<id property="voucherNo" column="VOUCHER_NO" />
+		<id property="voucherId" column="VOUCHER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="orderType" column="ORDER_TYPE" />
+		<result property="isPackage" column="IS_PACKAGE" />
+		<result property="packageId" column="PACKAGE_ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="goodsTypeId" column="GOODS_TYPE_ID" />
+		<result property="channelType" column="CHANNEL_TYPE" />
+		<result property="instChannelId" column="INST_CHANNEL_ID" />
+		<result property="channelName" column="CHANNEL_NAME" />
+		<result property="listPrice" column="LIST_PRICE" />
+		<result property="price" column="PRICE" />
+		<result property="supplierSettlementPrice" column="SUPPLIER_SETTLEMENT_PRICE" />
+		<result property="sendMobile" column="SEND_MOBILE" />
+		<result property="maxUseTimes" column="MAX_USE_TIMES" />
+		<result property="validateTimes" column="VALIDATE_TIMES" />
+		<result property="cancelNum" column="CANCEL_NUM" />
+		<result property="smsCount" column="SMS_COUNT" />
+		<result property="status" column="STATUS" />
+		<result property="freezeNum" column="FREEZE_NUM" />
+		<result property="isTicket" column="IS_TICKET" />
+		<result property="useTime" column="USE_TIME" />
+		<result property="sendTime" column="SEND_TIME" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="certificateNum" column="CERTIFICATE_NUM" />
+		<result property="voucherValue" column="VOUCHER_VALUE" />
+		<result property="voucherImageUrl" column="VOUCHER_IMAGE_URL" />
+		<result property="userId" column="USER_ID" />
+		<result property="invalidDesc" column="INVALID_DESC" />
+		<result property="changeStartDate" column="CHANGE_START_DATE" />
+		<result property="changeEndDate" column="CHANGE_END_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		<result property="supplierId" column="SUPPLIER_ID" />
+		<result property="payTime" column="PAY_TIME" />
+		<result property="expDayOfWeek" column="EXP_DAY_OF_WEEK" />
+		<result property="expExceptionDate" column="EXP_EXCEPTION_DATE" />
+		<result property="endExpAllowTime" column="END_EXP_ALLOW_TIME" />
+		<result property="isSecondValid" column="IS_SECOND_VALID" />
+		<result property="isSecondValid" column="REPRINT_TIMES" />
+		<result property="outCode" column="OUT_CODE" />
+		<result property="isSync" column="IS_SYNC"/>
+	</resultMap>
+	
+		<resultMap type="Voucher" id="voucherGoodsMap">
+		<id property="voucherNo" column="VOUCHER_NO" />
+		<id property="voucherId" column="VOUCHER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="orderType" column="ORDER_TYPE" />
+		<result property="isPackage" column="IS_PACKAGE" />
+		<result property="packageId" column="PACKAGE_ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="goodsTypeId" column="GOODS_TYPE_ID" />
+		<result property="channelType" column="CHANNEL_TYPE" />
+		<result property="instChannelId" column="INST_CHANNEL_ID" />
+		<result property="channelName" column="CHANNEL_NAME" />
+		<result property="listPrice" column="LIST_PRICE" />
+		<result property="price" column="PRICE" />
+		<result property="supplierSettlementPrice" column="SUPPLIER_SETTLEMENT_PRICE" />
+		<result property="sendMobile" column="SEND_MOBILE" />
+		<result property="maxUseTimes" column="MAX_USE_TIMES" />
+		<result property="validateTimes" column="VALIDATE_TIMES" />
+		<result property="cancelNum" column="CANCEL_NUM" />
+		<result property="smsCount" column="SMS_COUNT" />
+		<result property="status" column="STATUS" />
+		<result property="freezeNum" column="FREEZE_NUM" />
+		<result property="isTicket" column="IS_TICKET" />
+		<result property="useTime" column="USE_TIME" />
+		<result property="sendTime" column="SEND_TIME" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="certificateNum" column="CERTIFICATE_NUM" />
+		<result property="voucherValue" column="VOUCHER_VALUE" />
+		<result property="voucherImageUrl" column="VOUCHER_IMAGE_URL" />
+		<result property="userId" column="USER_ID" />
+		<result property="invalidDesc" column="INVALID_DESC" />
+		<result property="changeStartDate" column="CHANGE_START_DATE" />
+		<result property="changeEndDate" column="CHANGE_END_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		<result property="supplierId" column="SUPPLIER_ID" />
+		<result property="expDayOfWeek" column="EXP_DAY_OF_WEEK" />
+		<result property="expExceptionDate" column="EXP_EXCEPTION_DATE" />
+		<result property="expAllowHours" column="EXP_ALLOW_HOURS" />
+		<result property="isSecondValid" column="IS_SECOND_VALID" />
+		
+		<association property="goods" javaType="Goods" column="GOODS_ID" resultMap="goodsTempMap"></association>
+	</resultMap>
+
+	<resultMap type="VoucherMerchant" id="voucherMerchantMap" extends="voucherMap">
+		<collection property="voucherMerchant" ofType="VoucherMerchant"
+			column="VOUCHER_ID">
+			<id property="voucherMerchantId" column="VOUCHER_MERCHANT_ID" />
+			<result property="voucherId" column="VOUCHER_ID" />
+			<result property="merchantId" column="MERCHANT_ID" />
+			<result property="merchantName" column="MERCHANT_NAME" />
+			<result property="canUseTimes" column="CAN_USE_TIMES" />
+			<result property="useTimes" column="USE_TIMES" />
+		</collection>
+	</resultMap>
+
+	<resultMap type="Goods" id="goodsTempMap">
+		<id property="goodsNo" column="GOODS_NO" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="goodsName" column="GOODS_NAME" />
+		<result property="goodsTypeCode" column="GOODS_TYPE_CODE" />
+		<result property="goodsTypeName" column="GOODS_TYPE_NAME" />
+		<result property="goodsCategoryId" column="GOODS_CATEGORY_ID" />
+		<result property="isPackage" column="IS_PACKAGE" />
+		<result property="listPrice" column="LIST_PRICE" />
+		<result property="salePrice" column="SALE_PRICE" />
+		<result property="supplierSettlementPrice" column="SUPPLIER_SETTLEMENT_PRICE" />
+		<result property="supplierId" column="SUPPLIER_ID" />
+		<result property="supplierName" column="SUPPLIER_NAME" />
+		<result property="useValidityType" column="USE_VALIDITY_TYPE" />
+		<result property="goodsCover" column="GOODS_COVER" />
+		<result property="saleType" column="SALE_TYPE" />
+		<result property="sellStartTime" column="SELL_START_TIME" />
+		<result property="sellEndTime" column="SELL_END_TIME" />
+		<result property="maxSellNum" column="MAX_SELL_NUM" />
+		<result property="dayMaxSellNum" column="DAY_MAX_SELL_NUM" />
+		<result property="idType" column="ID_TYPE" />
+		<result property="sellNumNow" column="SELL_NUM_NOW" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="modifyTime" column="MODIFY_TIME" />
+		<result property="checkStatus" column="CHECK_STATUS" />
+		<result property="financeCheckStatus" column="FINANCE_CHECK_STATUS" />
+		<result property="status" column="STATUS" />
+		<result property="isAllowUnsubscribe" column="IS_ALLOW_UNSUBSCRIBE" />
+		<result property="isRebate" column="IS_REBATE" />
+		<result property="rebateType" column="REBATE_TYPE" />
+		<result property="outCode" column="OUT_CODE" />
+		<result property="onlineSmsModelId" column="ONLINE_SMS_MODEL_ID" />
+		<result property="delaySmsModelId" column="DELAY_SMS_MODEL_ID" />
+		<result property="ticketModelId" column="TICKET_MODEL_ID" />
+		<result property="isJoint" column="IS_JOINT" />
+		<result property="relatePlaceId" column="RELATE_PLACE_ID" />
+		<result property="openPlatform" column="OPEN_PLATFORM" />
+		<result property="scenicSoptId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSoptName" column="SCENIC_SPOT_NAME" />
+	</resultMap>
+	
+	<insert id="save" parameterType="Voucher">
+		INSERT INTO S_VOUCHER
+			(voucherNo,
+			VOUCHER_ID,
+			ORDER_ID,
+			ORDER_TYPE,
+			IS_PACKAGE,
+			PACKAGE_ID,
+			GOODS_ID,
+			GOODS_NAME,
+			GOODS_TYPE_ID,
+			CHANNEL_TYPE,
+			INST_CHANNEL_ID,
+			CHANNEL_NAME,
+			LIST_PRICE,
+			PRICE,
+			SUPPLIER_SETTLEMENT_PRICE,
+			SEND_MOBILE,
+			MAX_USE_TIMES,
+			VALIDATE_TIMES,
+			CANCEL_NUM,
+			SMS_COUNT,
+			STATUS,
+			FREEZE_NUM,
+			IS_TICKET,
+			USE_TIME,
+			SEND_TIME,
+			START_DATE,
+			END_DATE,
+			CERTIFICATE_NUM,
+			VOUCHER_VALUE,
+			VOUCHER_IMAGE_URL,
+			USER_ID,
+			INVALID_DESC,
+			CHANGE_START_DATE,
+			CHANGE_END_DATE,
+			CREATE_TIME,
+			SCENIC_SPOT_ID,
+			SCENIC_SPOT_NAME,
+			SUPPLIER_ID,
+			PAY_TIME,
+			EXP_DAY_OF_WEEK,
+			EXP_EXCEPTION_DATE,
+			START_EXP_ALLOW_TIME,
+			END_EXP_ALLOW_TIME,
+			IS_SECOND_VALID,
+			REPRINT_TIMES,
+			OUT_CODE,
+			IS_SYNC)
+			VALUES
+			(
+			#{voucherNo},
+			#{voucherId},
+			#{orderId},
+			#{orderType},
+			#{isPackage},
+			#{packageId},
+			#{goodsId},
+			#{goodsName},
+			#{goodsTypeId},
+			#{channelType},
+			#{instChannelId},
+			#{channelName},
+			#{listPrice},
+			#{price},
+			#{supplierSettlementPrice},
+			#{sendMobile},
+			#{maxUseTimes},
+			#{validateTimes},
+			#{cancelNum},
+			#{smsCount},
+			#{status},
+			#{freezeNum},
+			#{isTicket},
+			#{useTime},
+			#{sendTime},
+			#{startDate},
+			#{endDate},
+			#{certificateNum},
+			#{voucherValue},
+			#{voucherImageUrl},
+			#{userId},
+			#{invalidDesc},
+			#{changeStartDate},
+			#{changeEndDate},
+			#{createTime},
+			#{scenicSpotId},
+			#{scenicSpotName},
+			#{supplierId},
+			#{payTime},
+			#{expDayOfWeek},
+			#{expExceptionDate},
+			#{startExpAllowTime},
+			#{endExpAllowTime},
+			#{isSecondValid},
+			#{reprintTimes},
+			#{outCode},
+			#{isSync}
+			)
+	</insert>
+
+
+	<!-- 查询所有凭证列表 -->
+	<select id="getVoucherList" parameterType="Voucher" resultMap="voucherMap">
+		SELECT *
+		  FROM S_VOUCHER
+	     WHERE SCENIC_SPOT_ID=#{entity.scenicSpotId}
+	     ORDER BY CREATE_TIME DESC
+	     LIMIT #{start}, #{pageSize}
+	</select>
+	
+	
+	<!-- 查询所有未同步凭证列表 -->
+	<select id="selectVoucherByIsSync" resultMap="voucherSyncMap">
+		SELECT *
+		  FROM S_VOUCHER
+	     WHERE IS_SYNC=0;
+	</select>
+
+
+	
+	<!-- 查询凭证详情 -->
+	<select id="getVoucherDetail" resultMap="voucherMap" parameterType="Voucher">
+        SELECT * 
+          FROM S_VOUCHER
+		 WHERE VOUCHER_ID = #{voucherId}
+		   AND SCENIC_SPOT_ID=#{scenicSpotId}
+	</select>
+	
+		<!--提供给前台使用, 查询凭证详情 -->
+	<select id="getVoucherDetailById" resultMap="voucherMap" parameterType="Voucher">
+        SELECT * 
+          FROM S_VOUCHER
+		 WHERE VOUCHER_ID = #{voucherId}
+	</select>
+	
+	<!--根据凭证值查询凭证详情. -->
+	<select id="getVoucherDetailByVoucher" resultMap="voucherMap" parameterType="string">
+        SELECT * 
+          FROM S_VOUCHER
+		 WHERE VOUCHER_VALUE = #{voucherValue}
+	</select>
+	
+		<!--修改凭证状态.  -->
+	<update id="updateVoucherOutTicket" parameterType="Voucher">
+	UPDATE S_VOUCHER SET STATUS=2
+	 WHERE VOUCHER_ID=#{voucherId}  and stauts!=2 
+	</update>
+	
+	<update id="updateIsSync" parameterType="Voucher">
+		UPDATE S_VOUCHER SET IS_SYNC=1 WHERE VOUCHER_ID=#{voucherId}
+	</update>
+
+
+</mapper>

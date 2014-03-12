@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登录</title>
+
+    <!--皮肤-->
+    <link rel="stylesheet" type="text/css" href="resources/themes/ext-theme-neptune/ext-theme-neptune-all.css" />
+    <!--自定义桌面样式-->
+    <link rel="stylesheet" type="text/css" href="resources/css/desktop.css" />
+
+
+
+
+    <!--动态加载js，引导文件-->
+    <script type="text/javascript" src="lib/ext/bootstrap.js"></script>
+
+    <!--语言本地化-->
+    <script type="text/javascript" src="lib/ext/ext-lang-zh_CN.js"></script>
+
+    <!--修正样式缺陷-->
+    <script type="text/javascript" src="lib/ext/ext-theme-neptune.js"></script>
+
+    <script type="text/javascript" src="app/SignIn.js"></script>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+        //tips 提示框，表单错误消息提示方式。
+        Ext.QuickTips.init();
+        Ext.form.Field.prototype.msgTarget = 'side';
+
+
+
+        Ext.onReady(function () {
+
+
+            //显示登录
+            Wms.view.signin.SignIn.show();
+
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+</html>

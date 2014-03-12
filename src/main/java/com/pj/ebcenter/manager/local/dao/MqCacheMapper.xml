@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pj.ebcenter.manager.local.dao.IMqCacheDao" >
+  <resultMap id="BaseResultMap" type="MqCache" >
+    <id column="MQ_TASK_ID" property="mqTaskId" jdbcType="INTEGER" />
+	<result column="VOURCHER_NO" property="vourcherNo" jdbcType="BIGINT" />
+    <result column="TERMINAL_RECORD_ID" property="terminalRecordId" jdbcType="INTEGER" />
+    <result column="QUERY_TABLE" property="queryTable" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="INTEGER" />
+    <result column="DATATIME" property="datatime" jdbcType="TIMESTAMP" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MQ_TASK_ID, VOURCHER_NO, TERMINAL_RECORD_ID, QUERY_TABLE, DEL_FLAG, DATATIME, MESSAGE
+  </sql>
+  
+  <select id="selectByDelFlag" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from S_MQ_CACHELOG
+    where DEL_FLAG = 1
+  </select>
+  
+  <select id="selectByDelFlagCount" resultType="int">
+    select count(MQ_TASK_ID)
+    from S_MQ_CACHELOG 
+    WHERE DEL_FLAG = 1
+  </select>
+  
+  
+
+  <insert id="insert" parameterType="MqCache" >
+    insert into S_MQ_CACHELOG (VOURCHER_NO, TERMINAL_RECORD_ID, 
+      QUERY_TABLE, DEL_FLAG,DATATIME, MESSAGE
+      )
+    values (#{vourcherNo}, #{terminalRecordId}, 
+      #{queryTable}, #{delFlag},NOW(), #{message}
+      )
+  </insert>
+  
+  <update id="delMqCache" parameterType="MqCache" >
+    update S_MQ_CACHELOG
+    set DEL_FLAG = 0
+    where DEL_FLAG = 1 and MQ_TASK_ID = #{mqTaskId}
+  </update>
+</mapper>

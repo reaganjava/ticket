@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.hq.dao.IVoucherMerchantDao">
+
+	<resultMap type="VoucherMerchant" id="voucherMerchantMap">
+		<id property="voucherId" column="VOUCHER_ID" />
+		<id property="voucherMerchantId" column="VOUCHER_MERCHANT_ID" />
+		<result property="merchantId" column="MERCHANT_ID" />
+		<result property="merchantName" column="MERCHANT_NAME" />
+		<result property="canUseTimes" column="CAN_USE_TIMES" />
+		<result property="useTimes" column="USE_TIMES" />
+		<result property="scenicSpotId" column="SCENIC_SPOT_ID" />
+		<result property="scenicSpotName" column="SCENIC_SPOT_NAME" />
+		<result property="isSync" column="IS_SYNC"/>
+	</resultMap>
+	
+	<select id="queryMerchantByIsSync" resultMap="voucherMerchantMap">
+		SELECT * FROM S_VOUCHER_MERCHANT WHERE IS_SYNC=0;
+	</select>
+	
+	<update id="updateIsSync" parameterType="voucherMerchant">
+		UPDATE S_VOUCHER_MERCHANT SET IS_SYNC = 1 WHERE VOUCHER_MERCHANT_ID = #{voucherMerchantId}
+	</update>
+	
+
+	<select id="queryMerchantInfoByGoodsId" parameterType="VoucherMerchant" resultMap="voucherMerchantMap">
+	  SELECT * 
+	    FROM S_VOUCHER_MERCHANT
+	   WHERE VOUCHER_ID = #{voucherId}
+	</select>
+
+	<insert id="save" parameterType="voucherMerchant">
+		INSERT INTO S_VOUCHER_MERCHANT(VOUCHER_ID,MERCHANT_ID,MERCHANT_NAME,CAN_USE_TIMES,USE_TIMES,SCENIC_SPOT_ID
+		       ,SCENIC_SPOT_NAME)
+		VALUES(#{voucherId},#{merchantId},#{merchantName},#{canUseTimes},#{useTimes},#{scenicSpotId}
+		       ,#{scenicSpotName})
+	</insert>
+	
+</mapper>

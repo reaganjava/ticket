@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.ebcenter.manager.hq.dao.IOutlineProuctDao">
+
+	<resultMap type="OutlineProduct" id="OutlineProductMap">
+		<id property="id" column="ID" />
+		<result property="offlineAccount" column="OFFLINE_ACCOUNT" />
+		<result property="refProductId" column="REF_PRODUCT_ID" />
+		<result property="ebProductId" column="EB_PRODUCT_ID" />
+		<result property="ebProductName" column="EB_PRODUCT_NAME" />
+		<result property="refProductName" column="REF_PRODUCT_NAME" />
+		<result property="refValidityDesc" column="REF_VALIDITY_DESC" />
+		<result property="refDescription" column="REF_DESCRIPTION" />
+		<result property="refGuestPrompt" column="REF_GUEST_PROMPT" />
+		<result property="refMarketPrice" column="REF_MARKET_PRICE" />
+		<result property="refSalesPrice" column="REF_SALES_PRICE" />
+		<result property="refConsumeArea" column="REF_CONSUME_AREA" />
+		<result property="isSyn" column="IS_SYN" />
+		<result property="isUpdate" column="IS_UPDATE" />
+	</resultMap>
+
+	<insert id="saveOutlineProduct" parameterType="OutlineProduct"
+		useGeneratedKeys="true" keyProperty="product.id">
+		INSERT INTO
+		S_OUTLING_PRODUCT(OFFLINE_ACCOUNT,REF_PRODUCT_ID,EB_PRODUCT_ID,EB_PRODUCT_NAME,REF_PRODUCT_NAME,
+		REF_LIMIT_COUNT,REF_VALIDITY_BUY_START,REF_VALIDITY_BUY_END,REF_VALIDITY_START,REF_VALIDITY_END,REF_VALIDITY_DESC,
+		REF_DESCRIPTION,REF_GUEST_PROMPT,REF_MARKET_PRICE,REF_SALES_PRICE,REF_CONSUME_AREA,IS_SYN,IS_UPDATE)
+		VALUES(
+		#{product.offlineAccount},#{product.refProductId},#{product.ebProductId},#{product.ebProductName},#{product.refProductName},
+		#{product.refLimitCount},#{product.refValidityBuyStart},#{product.refValidityBuyEnd},#{product.refValidityStart},#{product.refValidityEnd},
+		#{product.refValidityDesc},#{product.refDescription},#{product.refGuestPrompt},#{product.refMarketPrice},
+		#{product.refSalesPrice},#{product.refConsumeArea},#{product.isSyn},#{product.isUpdate}
+		)
+	</insert>
+
+	<update id="updateOutlineProduct" parameterType="OutlineProduct">
+		UPDATE S_OUTLING_PRODUCT SET  
+			   REF_PRODUCT_NAME=#{product.refProductName} , REF_VALIDITY_DESC=#{product.refValidityDesc} , REF_DESCRIPTION=#{product.refDescription},
+			   REF_LIMIT_COUNT=#{product.refLimitCount} , REF_VALIDITY_BUY_START=#{product.refValidityBuyStart} , REF_VALIDITY_BUY_END=#{product.refValidityBuyEnd} ,
+			   REF_VALIDITY_START=#{product.refValidityStart} , REF_VALIDITY_END=#{product.refValidityEnd} , 
+			   REF_GUEST_PROMPT=#{product.refGuestPrompt} , REF_MARKET_PRICE=#{product.refMarketPrice} , REF_SALES_PRICE=#{product.refSalesPrice},REF_CONSUME_AREA=#{product.refConsumeArea},
+			  IS_SYN=#{product.isSyn}, IS_UPDATE=#{product.isUpdate}
+			WHERE REF_PRODUCT_ID=#{product.refProductId} AND OFFLINE_ACCOUNT=#{product.offlineAccount}
+	</update>
+	
+	<select id="getOutlineProductByIdAndAccount" resultMap="OutlineProductMap">
+		SELECT 
+			ID,OFFLINE_ACCOUNT,REF_PRODUCT_ID,EB_PRODUCT_ID,EB_PRODUCT_NAME,REF_PRODUCT_NAME,
+			REF_LIMIT_COUNT,REF_VALIDITY_BUY_START,REF_VALIDITY_BUY_END,REF_VALIDITY_START,REF_VALIDITY_END,REF_VALIDITY_DESC,
+			REF_DESCRIPTION,REF_GUEST_PROMPT,REF_MARKET_PRICE,REF_SALES_PRICE,REF_CONSUME_AREA,IS_SYN,IS_UPDATE
+		FROM S_OUTLING_PRODUCT s
+		WHERE s.REF_PRODUCT_ID=#{refProductId} AND s.OFFLINE_ACCOUNT=#{offlineAccount}
+	</select>
+
+</mapper>  
